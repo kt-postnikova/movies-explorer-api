@@ -7,7 +7,7 @@ const urlCheck = (value) => {
   if (result) {
     return value;
   }
-  throw new BadRequestError('Переданы некорректные данные');
+  throw new BadRequestError('Необходимо передать URL-ссылку');
 };
 
 const userInfoValidator = celebrate({
@@ -32,8 +32,25 @@ const registrationValidator = celebrate({
   }),
 });
 
+const createMovieValidator = celebrate({
+  body: Joi.object().keys({
+    country: Joi.string().required(),
+    director: Joi.string().required(),
+    duration: Joi.number().required(),
+    year: Joi.string().required(),
+    description: Joi.string().required(),
+    image: Joi.string().required().custom(urlCheck),
+    trailer: Joi.string().required().custom(urlCheck),
+    thumbnail: Joi.string().required().custom(urlCheck),
+    nameRU: Joi.string().required(),
+    nameEN: Joi.string().required(),
+    movieId: Joi.number().required()
+  })
+});
+
 module.exports = {
   userInfoValidator,
   loginValidator,
   registrationValidator,
+  createMovieValidator
 };
