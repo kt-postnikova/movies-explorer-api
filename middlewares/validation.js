@@ -44,13 +44,13 @@ const createMovieValidator = celebrate({
     thumbnail: Joi.string().required().custom(urlCheck),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
-    movieId: Joi.number().required()
-  })
+    movieId: Joi.number().required(),
+  }),
 });
 
 module.exports = {
   userInfoValidator,
   loginValidator,
   registrationValidator,
-  createMovieValidator
+  createMovieValidator,
 };

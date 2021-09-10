@@ -40,7 +40,7 @@ const updateUserInfo = (req, res, next) => {
   const { email, name } = req.body;
 
   User.findByIdAndUpdate(req.user._id, { email, name }, { new: true, runValidators: true })
-    .then((user) => res.send({ message: 'Информация успешно обновлена!' }))
+    .then(() => res.send({ message: 'Информация успешно обновлена!' }))
     .catch(next);
 };
 
@@ -55,7 +55,6 @@ const updateUserInfo = (req, res, next) => {
 //     .then((users) => res.send({ data: users }))
 //     .catch(next);
 // };
-
 
 module.exports = {
   login,
