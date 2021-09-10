@@ -2,10 +2,10 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
+require('dotenv').config();
 const userRouter = require('./routes/user');
 const moviesRouter = require('./routes/movie');
 const { registration, login } = require('./controllers/users');
-// const auth = require('./middlewares/auth');
 const { registrationValidator, loginValidator } = require('./middlewares/validation');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
@@ -25,7 +25,6 @@ app.use(requestLogger);
 app.post('/signin', loginValidator, login);
 app.post('/signup', registrationValidator, registration);
 
-// app.use(auth);
 app.use('/', userRouter);
 app.use('/', moviesRouter);
 
