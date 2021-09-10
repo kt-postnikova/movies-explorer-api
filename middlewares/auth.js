@@ -7,7 +7,6 @@ module.exports = (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization) {
-    // return res.status(401).send({ message: 'Необходима авторизация' });
     throw new UnauthorizedError('Необходима авторизация');
   }
 
@@ -16,7 +15,6 @@ module.exports = (req, res, next) => {
   try {
     playload = jwt.verify(authorization, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret');
   } catch (err) {
-    // return res.status(401).send({ message: 'Необходима авторизация' });
     throw new UnauthorizedError('Необходима авторизация');
   }
   req.user = playload;
