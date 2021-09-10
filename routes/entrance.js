@@ -1,4 +1,4 @@
-const entranceRouter = require('express').Router;
+const entranceRouter = require('express').Router();
 const { registration, login } = require('../controllers/users');
 const { registrationValidator, loginValidator } = require('../middlewares/validation');
 
