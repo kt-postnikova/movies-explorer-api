@@ -2,8 +2,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const ConflictError = require('../errors/ConflictError');
-const BadRequestError = require('../errors/BadRequestError');
-const UnauthorizedError = require('../errors/UnauthorizedError');
+
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 const registration = (req, res, next) => {
   const { email, name, password } = req.body;
@@ -24,9 +24,8 @@ const login = (req, res, next) => {
 
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, 'some-secret-key', { expiresIn: '7d' });
+      const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
       res.send({ token });
-      // res.cookie('jwt', token, { maxAge: 3600000, httpOnly: true, sameSite: 'none', secure: true }).send({ token });
     })
     .catch(next);
 };
@@ -45,23 +44,17 @@ const updateUserInfo = (req, res, next) => {
     .catch(next);
 };
 
-
-// const signOut = (req, res) => {
-//   res.clearCookie('jwt').send({ message: 'OK' });
+// const deleteUser = (req, res, next) => {
+//   User.findByIdAndDelete(req.params.id)
+//     .then((user) => res.send({ data: user }))
+//     .catch(next);
 // };
 
-
-const deleteUser = (req, res, next) => {
-  User.findByIdAndDelete(req.params.id)
-    .then((user) => res.send({ data: user }))
-    .catch(next);
-};
-
-const getUsers = (req, res, next) => {
-  User.find({})
-    .then((users) => res.send({ data: users }))
-    .catch(next);
-};
+// const getUsers = (req, res, next) => {
+//   User.find({})
+//     .then((users) => res.send({ data: users }))
+//     .catch(next);
+// };
 
 
 module.exports = {
@@ -69,7 +62,6 @@ module.exports = {
   registration,
   getUserInfo,
   updateUserInfo,
-  // signOut,
-  deleteUser,
-  getUsers
+  // deleteUser,
+  // getUsers
 };
