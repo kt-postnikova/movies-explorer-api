@@ -6,8 +6,7 @@ require('dotenv').config();
 const rateLimit = require('express-rate-limit');
 const userRouter = require('./routes/user');
 const moviesRouter = require('./routes/movie');
-const { registration, login } = require('./controllers/users');
-const { registrationValidator, loginValidator } = require('./middlewares/validation');
+const entranceRouter = require('./routes/entrance');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
@@ -21,8 +20,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(requestLogger);
 
-app.post('/signin', loginValidator, login);
-app.post('/signup', registrationValidator, registration);
+// app.post('/signin', loginValidator, login);
+// app.post('/signup', registrationValidator, registration);
+app.use('/', entranceRouter);
 
 app.use('/', userRouter);
 app.use('/', moviesRouter);
