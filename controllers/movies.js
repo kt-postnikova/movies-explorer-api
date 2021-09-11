@@ -32,10 +32,9 @@ const deleteMovie = (req, res, next) => {
       if (movie.owner.toString() !== ownerId) {
         throw new ForbiddenError('Нет доступа к данным');
       }
-    })
-    .then(() => {
-      Movie.findByIdAndDelete(id)
-        .then(() => res.send({ message: 'Фильм удалён' }));
+      return movie.remove()
+        .then(() => res.send({ message: 'Фильм удалён' }))
+        .catch(next);
     })
     .catch(next);
 };
