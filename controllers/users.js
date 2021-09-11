@@ -15,6 +15,7 @@ const registration = (req, res, next) => {
       if (err.name === 'MongoServerError' && err.code === 11000) {
         throw new ConflictError('Пользователь с таким email уже существует');
       }
+      throw err;
     })
     .catch(next);
 };
@@ -41,6 +42,12 @@ const updateUserInfo = (req, res, next) => {
 
   User.findByIdAndUpdate(req.user._id, { email, name }, { new: true, runValidators: true })
     .then(() => res.send({ message: 'Информация успешно обновлена!' }))
+    .catch((err) => {
+      if (err.name === 'MongoServerError' && err.code === 11000) {
+        throw new ConflictError('Пользователь с таким email уже существует');
+      }
+      throw err;
+    })
     .catch(next);
 };
 
@@ -50,11 +57,11 @@ const updateUserInfo = (req, res, next) => {
 //     .catch(next);
 // };
 
-// const getUsers = (req, res, next) => {
-//   User.find({})
-//     .then((users) => res.send({ data: users }))
-//     .catch(next);
-// };
+const getUsers = (req, res, next) => {
+  User.find({})
+    .then((users) => res.send({ data: users }))
+    .catch(next);
+};
 
 module.exports = {
   login,
@@ -62,5 +69,5 @@ module.exports = {
   getUserInfo,
   updateUserInfo,
   // deleteUser,
-  // getUsers
+  getUsers,
 };
