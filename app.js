@@ -7,8 +7,6 @@ const rateLimit = require('express-rate-limit');
 const userRouter = require('./routes/user');
 const moviesRouter = require('./routes/movie');
 const entranceRouter = require('./routes/entrance');
-// const { registration, login } = require('./controllers/users');
-// const { registrationValidator, loginValidator } = require('./middlewares/validation');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./errors/NotFoundError');
 
@@ -30,8 +28,6 @@ const limiter = rateLimit({
 
 app.use(limiter);
 
-// app.post('/signin', loginValidator, login);
-// app.post('/signup', registrationValidator, registration);
 app.use(entranceRouter);
 
 app.use('/', userRouter);
@@ -51,12 +47,5 @@ app.use((err, req, res, next) => {
 
   next();
 });
-
-// const limiter = rateLimit({
-//   windowMs: 15 * 60 * 1000,
-//   max: 100,
-// });
-
-// app.use(limiter);
 
 app.listen(PORT);
