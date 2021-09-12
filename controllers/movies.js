@@ -11,11 +11,32 @@ const getMovies = (req, res, next) => {
 const createMovie = (req, res, next) => {
   const owner = req.user._id;
   const {
-    country, director, duration, year, description, image, trailer, thumbnail, nameRU, nameEN, movieId,
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailer,
+    thumbnail,
+    nameRU,
+    nameEN,
+    movieId,
   } = req.body;
 
   Movie.create({
-    country, director, duration, year, description, image, trailer, thumbnail, nameRU, nameEN, movieId, owner,
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailer,
+    thumbnail,
+    nameRU,
+    nameEN,
+    movieId,
+    owner,
   })
     .then((movie) => res.send({ movie }))
     .catch(next);
