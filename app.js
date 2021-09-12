@@ -33,10 +33,6 @@ app.use(entranceRouter);
 app.use('/', userRouter);
 app.use('/', moviesRouter);
 
-// app.use('*', () => {
-//   throw new NotFoundError('Запрашиваемый ресурс не найден');
-// });
-
 app.use(indexRouter);
 
 app.use(errorLogger);
