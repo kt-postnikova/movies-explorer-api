@@ -7,8 +7,8 @@ const rateLimit = require('express-rate-limit');
 const userRouter = require('./routes/user');
 const moviesRouter = require('./routes/movie');
 const entranceRouter = require('./routes/entrance');
+const indexRouter = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const NotFoundError = require('./errors/NotFoundError');
 
 const app = express();
 
@@ -33,9 +33,11 @@ app.use(entranceRouter);
 app.use('/', userRouter);
 app.use('/', moviesRouter);
 
-app.use('*', () => {
-  throw new NotFoundError('Запрашиваемый ресурс не найден');
-});
+// app.use('*', () => {
+//   throw new NotFoundError('Запрашиваемый ресурс не найден');
+// });
+
+app.use(indexRouter);
 
 app.use(errorLogger);
 app.use(errors());
