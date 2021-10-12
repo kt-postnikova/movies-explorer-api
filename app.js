@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const { errors } = require('celebrate');
 require('dotenv').config();
 const rateLimit = require('express-rate-limit');
@@ -15,6 +16,14 @@ const app = express();
 const { PORT = 3000, DB_URL = 'mongodb://localhost:27017/bitfilmsdb' } = process.env;
 
 mongoose.connect(DB_URL, { useNewUrlParser: true });
+
+app.use(cors({
+  origin: 'https://project.movie-explorer.nomoredomains.club',
+  methods: ['POST', 'DELETE', 'GET', 'PUT', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  optionsSuccessStatus: 204,
+}));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
