@@ -42,16 +42,16 @@ const registrationValidator = celebrate({
 const createMovieValidator = celebrate({
   body: Joi.object().keys({
     country: Joi.string().required(),
+    description: Joi.string().required(),
     director: Joi.string().required(),
     duration: Joi.number().required(),
-    year: Joi.string().required(),
-    description: Joi.string().required(),
     image: Joi.string().required().custom(urlCheck),
-    trailer: Joi.string().required().custom(urlCheck),
-    thumbnail: Joi.string().required().custom(urlCheck),
+    id: Joi.number().required(),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
-    movieId: Joi.number().required(),
+    thumbnail: Joi.string().required().custom(urlCheck),
+    trailerLink: Joi.string().required().custom(urlCheck),
+    year: Joi.string().required(),
   }),
 });
 

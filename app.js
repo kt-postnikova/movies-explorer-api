@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const { errors } = require('celebrate');
 require('dotenv').config();
-const rateLimit = require('express-rate-limit');
+// const rateLimit = require('express-rate-limit');
 const userRouter = require('./routes/user');
 const moviesRouter = require('./routes/movie');
 const entranceRouter = require('./routes/entrance');
@@ -30,12 +30,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(requestLogger);
 
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
-  max: 100,
-});
+// const limiter = rateLimit({
+//   windowMs: 15 * 60 * 1000,
+//   max: 100,
+// });
 
-app.use(limiter);
+// app.use(limiter);
 
 app.use(entranceRouter);
 
