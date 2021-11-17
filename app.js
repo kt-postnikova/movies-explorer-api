@@ -13,10 +13,6 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
 
-const { PORT = 3000, DB_URL = 'mongodb://localhost:27017/bitfilmsdb' } = process.env;
-
-mongoose.connect(DB_URL, { useNewUrlParser: true });
-
 app.use(cors({
   origin: 'https://project.movie-explorer.nomoredomains.rocks',
   methods: ['POST', 'DELETE', 'GET', 'PUT', 'PATCH', 'OPTIONS'],
@@ -24,6 +20,10 @@ app.use(cors({
   credentials: true,
   optionsSuccessStatus: 204,
 }));
+
+const { PORT = 3000, DB_URL = 'mongodb://localhost:27017/bitfilmsdb' } = process.env;
+
+mongoose.connect(DB_URL, { useNewUrlParser: true });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
