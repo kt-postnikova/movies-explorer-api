@@ -18,7 +18,7 @@ const { PORT = 3000, DB_URL = 'mongodb://localhost:27017/bitfilmsdb' } = process
 mongoose.connect(DB_URL, { useNewUrlParser: true });
 
 app.use(cors({
-  origin: 'http://localhost:3001',
+  origin: 'https://project.movie-explorer.nomoredomains.rocks',
   methods: ['POST', 'DELETE', 'GET', 'PUT', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
