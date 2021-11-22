@@ -46,12 +46,12 @@ const createMovie = (req, res, next) => {
 const deleteMovie = (req, res, next) => {
   // const ownerId = req.user._id;
   // const { id } = req.params;
-  Movie.find({ id: req.params.id })
+  Movie.find({ _id: req.params.id })
     .then((movie) => {
       if (!movie) {
         throw new NotFoundError('Фильм не найден');
       }
-      Movie.deleteOne({ id: req.params.id })
+      Movie.deleteOne({ _id: req.params.id })
         .then(() => res.send({ message: 'Фильм удалён' }))
         .catch(next);
       // if (movie.owner.toString() !== ownerId) {
