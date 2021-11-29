@@ -10,7 +10,7 @@ const registration = (req, res, next) => {
 
   bcrypt.hash(password, 10)
     .then((hash) => User.create({ email, password: hash, name }))
-    .then((user) => res.send({ data: user.toJSON() }))
+    .then(() => res.send({ message: 'Пользователь успешно зарегистрирован!' }))
     .catch((err) => {
       if (err.name === 'MongoServerError' && err.code === 11000) {
         throw new ConflictError('Пользователь с таким email уже существует');
