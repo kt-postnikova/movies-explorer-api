@@ -14,7 +14,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const app = express();
 
 app.use(cors({
-  origin: 'https://project.movie-explorer.nomoredomains.rocks',
+  origin: ['https://project.movie-explorer.nomoredomains.rocks', 'http://localhost:3001'],
   methods: ['POST', 'DELETE', 'GET', 'PUT', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
