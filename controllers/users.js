@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const ConflictError = require('../errors/ConflictError');
+const BadRequestError = require('../errors/BadRequestError');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
@@ -17,6 +18,8 @@ const registration = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'MongoServerError' && err.code === 11000) {
         throw new ConflictError('Пользователь с таким email уже существует');
+      } else if (err.code === 400) {
+        throw new BadRequestError('Неправильно указал email или пароль');
       }
       throw err;
     })
